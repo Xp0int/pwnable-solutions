@@ -1,12 +1,12 @@
 from zio import *
 
-target          = './leave_message'
+target          = './xust-ctf-2016-leave_message'
 read_c          = COLORED(RAW, 'green')
 write_c         = COLORED(RAW, 'blue')
 io              = zio(target, timeout = 100000000, print_read = read_c, print_write = write_c)
 
 #io.gdb_hint([0x4008bb])
-io.gdb_hint([0x400a07])
+#io.gdb_hint([0x400a07])
 #io.gdb_hint([0x4009bd])
 
 # mes_num       0x602094

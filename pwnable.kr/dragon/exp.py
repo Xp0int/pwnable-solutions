@@ -22,23 +22,12 @@ io      = zio(target, print_read = c_read, print_write = c_write, timeout = 1000
 #     int     *print_func(struct hero *)
 # }
 
-io.writeline('1')
-io.writeline('1')
-io.writeline('1')
-io.writeline('1')
-
-io.writeline('3')
-io.writeline('3')
-io.writeline('2')
-io.writeline('3')
-io.writeline('3')
-io.writeline('2')
-io.writeline('3')
-io.writeline('3')
-io.writeline('2')
-io.writeline('3')
-io.writeline('3')
-io.writeline('2')
+for i in range(0, 4):
+    io.writeline('1')
+for i in range(0, 4):
+    io.writeline('3')
+    io.writeline('3')
+    io.writeline('2')
 
 io.writeline(l32(0x08048dbf))
 

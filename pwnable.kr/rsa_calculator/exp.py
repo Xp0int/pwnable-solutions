@@ -1,7 +1,6 @@
 from zio import *
 target  = './rsa_calculator'
-# io.gdb_hint([0x400fa9]) # rsa_encrypt ret
-# x/800xg $rbp-0x1040
+target  = ('pwnable.kr', 9012)
 
 def set_key(io, p, q, e, d):
     io.read_until('> ')
@@ -54,11 +53,10 @@ def exp(target):
     q = 37
     e = 7
     d = egcd(e, (p-1) * (q-1)) 
-    #print 'p=%d\nq=%d\ne=%d\nd=%d\n' % (p, q, e, d)
+    # print 'p=%d\nq=%d\ne=%d\nd=%d\n' % (p, q, e, d)
 
     # io = zio(target, timeout = 100000, print_read = COLORED(RAW, 'red'), print_write = COLORED(RAW, 'yellow'))
     io = zio(target, timeout = 100000, print_read = False, print_write = False)
-    io.gdb_hint([0x401238, 0x4011b6]) # RSA_decrypt_ret
     set_key(io, p, q, e, d)
 
     plt_system  = 0x004007c0

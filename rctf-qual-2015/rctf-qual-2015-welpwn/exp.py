@@ -60,3 +60,4 @@ adr_system = d.lookup('system', 'libc')
 print '[+] system addr\t:\t' + hex(adr_system)
 exp(adr_system)
 io.itr()
+

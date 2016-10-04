@@ -1,0 +1,10 @@
+# compile shared object
+gcc -nostdlib -shared -o libio.so -fPIC io.c
+
+# compile shell
+gcc -nostdlib -shared -o libgetshell.so -fPIC getshell.c
+
+# compile binary
+gcc -O0 -nostdlib -Wall main.c -o main -L. -lio -lgetshell
+
+export LD_LIBRARY_PATH=/home/ctf/pwnable/2016/xdctf-qual-2016/xdctf-qual-2016-pwn300/lib

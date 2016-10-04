@@ -1,0 +1,1 @@
+gcc -O0 -fno-stack-protector pwn100.c -o pwn100

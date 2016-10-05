@@ -49,9 +49,6 @@ def wsa(self, pattern_list, sequence, timeout = 1, searchwindowsize = None):
     self.read_until(pattern_list, timeout, searchwindowsize) 
     self.writelines( [str(i) if isinstance(i, (int, long)) else i for i in sequence] )
 
-def itr(self, escape_character=chr(29), input_filter = None, output_filter = None, raw_rw = True):
-    self.interact(escape_character, input_filter, output_filter, raw_rw)
-
 # main
 setattr(zio, 'w', w)
 setattr(zio, 'wl', wl)
@@ -62,7 +59,6 @@ setattr(zio, 'wsa', wsa)
 setattr(zio, 'r', r)
 setattr(zio, 'rl', rl)
 setattr(zio, 'ru', ru)
-setattr(zio, 'itr', itr)
 
 # utilities
 def info_leak(arg1, arg2):

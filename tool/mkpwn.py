@@ -1,6 +1,15 @@
-#!/bin/python2.7
+#!/usr/bin/env python2.7
 # -*- coding:utf-8 -*-
 
+'''
+By Icemakr
+
+This is a useless script for my daily pwning in CTFs:(
+
+Note that I use zio instead of pwntool because of its lightweight.
+'''
+
+# zio is awesome
 from zio import *
 
 # print
@@ -14,15 +23,16 @@ def w(self, s):
     self.write(s)
 
 # writeline
-def wl(self, s = ''): 
-    if isinstance(s, (int, long)):
-        self.writeline(str(s)) 
-    else: 
-        self.writeline(s)
-
-# writelines
-def ws(self ,sequence): 
-    self.writelines( [str(i) if isinstance(i, (int, long)) else i for i in sequence] )
+def pr(self, *args): 
+    if len(args) == 0:
+        self.writeline()
+    for stuff in args:
+        if isinstance(stuff, (int, long)):
+            self.writeline(str(stuff)) 
+        elif isinstance(stuff, (list, tuple)): 
+            self.writelines( [str(i) if isinstance(i, (int, long)) else i for i in stuff] )
+        else:
+            self.writeline(stuff)
 
 # read
 def r(self, size = None, timeout = -1):
@@ -36,31 +46,13 @@ def rl(self, size = 1):
 def ru(self, pattern_list, timeout = -1, searchwindowsize = None):
     return self.read_until(pattern_list, timeout, searchwindowsize)
 
-def wa(self, pattern_list, s, timeout = -1, searchwindowsize = None):
-    self.read_until(pattern_list, timeout, searchwindowsize)
-    self.writeline(s)
-
-# writeline_after
-def wla(self, pattern_list, s, timeout = -1, searchwindowsize = None):
-    self.read_until(pattern_list, timeout, searchwindowsize) 
-    self.writeline(s)
-
-# wrtelins_after
-def wsa(self, pattern_list, sequence, timeout = -1, searchwindowsize = None):
-    self.read_until(pattern_list, timeout, searchwindowsize) 
-    self.writelines( [str(i) if isinstance(i, (int, long)) else i for i in sequence] )
-
 def hint(self, breakpoints = None, relative = None, extras = None):
     self.gdb_hint(breakpoints, relative, extras)
 
 
 # main
 setattr(zio, 'w', w)
-setattr(zio, 'wl', wl)
-setattr(zio, 'ws', ws)
-setattr(zio, 'wa', wa)
-setattr(zio, 'wla', wa)
-setattr(zio, 'wsa', wsa)
+setattr(zio, 'pr', pr)
 setattr(zio, 'r', r)
 setattr(zio, 'rl', rl)
 setattr(zio, 'ru', ru)
@@ -74,7 +66,7 @@ def info_found(arg1, arg2):
     print GREEN("[+] {} :".format(arg1).ljust(0x20, ' ') + "{}".format(hex(arg2)))
 
 def info_shell():
-    print CYAN("\n[~*~] enjoy your shell!")
+    print CYAN("\n[*] enjoy your shell ~")
 
 def mk(target, debug = True):
     if debug:

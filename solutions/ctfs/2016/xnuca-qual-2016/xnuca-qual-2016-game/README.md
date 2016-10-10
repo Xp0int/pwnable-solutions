@@ -1,1 +1,0 @@
-这个题和之前xx杯上遇到的似乎一样，不想再写一遍了，大致利用思路就是泄露ELF的基地址后，利用uaf实现任意地址跳转，然后利用printf泄露libc得到system函数地址，然后再利用uaf来调用system getshell即可

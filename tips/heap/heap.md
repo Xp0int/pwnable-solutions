@@ -1,5 +1,3 @@
-[TOC]
-
 ### 0x1 Tech
 1. [Malloc Maleficarum](https://sploitfun.wordpress.com/2015/03/04/heap-overflow-using-malloc-maleficarum/)
 2. unsorted bin unlink (free'd)

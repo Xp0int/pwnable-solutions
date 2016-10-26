@@ -1,47 +1,66 @@
-```
-+-------------------------------------------------------------------------------------------------------------------------------------------------------+
-|					                                            H   E   A   P																			|
-+-------------------+---------------------------+-------------------------------------------------------------------+-----------------------------------+
-|		BIN			|			BUG				|							EXPLOIT									|				EXAMPLE				|
-+-------------------+---------------------------+-------------------------------------------------------------------+-----------------------------------+
-|	            	|	              			|	                    											|	def-con-qual-2016-babyfirst		|
-|                   |   heap-based bof          |   off-by-one -> unlink                                            +-----------------------------------+
-|	            	|	             			|	                    											|	xdctf-qual-2015-pwn300			|
-|                   +---------------------------+-------------------------------------------------------------------+-----------------------------------+
-|	unsorted-bin	|	off-by-one (heap-based) |	poison-null-byte -> unlink										|	alictf-qual-2016				|
-|                   +---------------------------+-------------------------------------------------------------------+-----------------------------------+
-|	            	|	UAF 					|	UAF																|	xdctf-qual-2015-pwn500			|
-|                   +---------------------------+-------------------------------------------------------------------+-----------------------------------+
-|	            	|	double-free 			|	expand-size(first-match) -> uaf -> double-free -> unlink		|	0ctf-qual-2015-freenote			|
-+-------------------+---------------------------+-------------------------------------------------------------------+-----------------------------------+
-|	fast-bin		|	double-free 			|	double-free -> fastbin-dup -> uaf -> arbitrary-write            |               					|
-+-------------------+---------------------------+-------------------------------------------------------------------+-----------------------------------+
-|	             	|	            			|	house-of-spirit                          	 					|									|
-+-------------------+---------------------------+-------------------------------------------------------------------+-----------------------------------+
-|	        		|	heap-based bof	        |	house-of-force                           	 					|   bctf-qual-2016-bcloud			|
-|	        		|	heap leak	            |	                                         	 					|	bctf-qual-2016-ruin				|
-+-------------------+---------------------------+-------------------------------------------------------------------+-----------------------------------+
+[TOC]
 
-```
+### 0x1 Tech
+1. [Malloc Maleficarum](https://sploitfun.wordpress.com/2015/03/04/heap-overflow-using-malloc-maleficarum/)
+2. unsorted bin unlink (free'd)
+3. small/large bin unlink (malloc'd)
+4. fastbin duplicate
+5. hijack function pointer
+6. [craft overlapping chunks](https://www.contextis.com/documents/120/Glibc_Adventures-The_Forgotten_Chunks.pdf)
+7. heap spray
 
-## Heap Overflow
+#### 0x11 Malloc Maleficarum
+##### house of force
+> 1. control heap chunk pointer
+> 2. leak stack address
+##### house of spirit
+> 1. leak heap address
+> 2. heap overflow to `top_chunk -> size`
+> 3. malloc'd size can be controlled by attacker
+##### house of lore
+> 1. leak heap address
+> 2. heap overflow
 
-unlink
+#### 0x12 unsorted bin unlink (free'd)
+**DWORD shoot** while **unlink** of unsorted bin 
 
-overlapping chunks(off by one)
-1.extending free chunks 2.extending allocated chunks 3.shrink free chunks
+#### 0x13 small/large bin unlink (malloc'd)
+**DWORD shoot** while **unlink** of small/large bin.
 
-## Double Free
+#### 0x14 fastbin duplicate
 
-## Use After Free
+#### 0x15 hijack function pointer
+Followed by **ROP**
 
+#### 0x16 craft overlapping chunks
+> 1. double free
+> 2. hijack function pointer
 
-## Malloc Maleficarum
+1. shrink free chunks
+2. extend free chunks
+3. extend allocated chunks
 
-house-of-force(overwrite size of top chunk)
+#### 0x17 heap spray
+[To Be Finished] 
 
-house-of-lore(smallbin-unlink)
+### 0x2 Vulns
+1. double free
+2. use after free
+3. heap overflow
+4. off by one
 
-house-of-spirit(craft fake chunk in stack or data segment)
+#### 0x21 double free
+unsorted bin unlink (free'd)
+fastbin duplicate
 
+#### 0x22 use after free
+hijack function pointer => rop (C++)
 
+#### 0x23 heap overflow
+unsorted bin unlink (free'd)
+small/large bin unlink (malloc'd) | house of lore
+fastbin duplicate
+
+#### 0x24 off by one
+unsorted bin unlink (free'd)
+overlapping chunks

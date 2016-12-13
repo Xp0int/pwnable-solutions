@@ -21,7 +21,7 @@ OFFSET_BIN_SH       = 0x17CCDB
 # exp
 def get_io():
     if LOCAL:
-        target  = './r0pbaby_542ee6516410709a1421141501f03760'
+        target  = './r0pbaby_542ee6516410709a1421141501f03760.patched'
     else:
         target  = ('0', 0)
 
